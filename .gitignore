@@ -1,0 +1,22 @@
+_pycache_/
+*.pyc
+.venv/
+venv/
+.env
+*.log
+.DS_Store
+
+# Temporary/output files
+*.tmp
+*.temp
+
+# Python cache
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+data/
+data_generated/
+dataset/
+dataset_download/
+evaluation_results

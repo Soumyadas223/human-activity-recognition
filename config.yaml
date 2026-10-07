@@ -1,0 +1,111 @@
+# Human Activity Recognition System Configuration
+# Edit this file to customize training and inference parameters
+
+# Dataset Configuration
+dataset:
+  root_dir: "./datasets/sample"
+  num_frames: 16
+  frame_size: [224, 224]
+  sampling_strategy: "uniform"  # uniform or random
+  train_split: 0.70
+  val_split: 0.20
+  test_split: 0.10
+  num_workers: 4
+  seed: 42
+
+# Data Loading Configuration
+dataloader:
+  batch_size: 32
+  shuffle_train: true
+  pin_memory: true
+  drop_last: false
+
+# Model Configuration
+model:
+  type: "cnnlstm"  # cnnlstm, cnn3d, or simplelstm
+  num_classes: 6
+  
+  # CNN-LSTM specific
+  hidden_dim: 256
+  num_layers: 2
+  dropout: 0.5
+  
+  # Pretrained weights
+  pretrained: true
+
+# Training Configuration
+training:
+  device: "cuda"  # cuda or cpu
+  num_epochs: 50
+  learning_rate: 0.001
+  weight_decay: 1e-5
+  
+  # Optimization
+  optimizer: "adam"  # adam or sgd
+  scheduler: "reduce_on_plateau"  # reduce_on_plateau or step
+  scheduler_params:
+    factor: 0.5
+    patience: 3
+    min_lr: 1e-6
+  
+  # Early stopping
+  early_stopping: true
+  patience: 10
+  
+  # Gradient clipping
+  clip_grad_norm: 1.0
+
+# Checkpoint Configuration
+checkpoint:
+  save_dir: "./checkpoints"
+  save_frequency: 1  # Save every N epochs
+  keep_best_only: true
+  load_checkpoint: null  # Path to checkpoint to load, or null
+
+# Logging Configuration
+logging:
+  log_dir: "./logs"
+  log_frequency: 10  # Log every N iterations
+  tensorboard: false
+  save_plots: true
+
+# Evaluation Configuration
+evaluation:
+  output_dir: "./evaluation_results"
+  plot_confusion_matrix: true
+  plot_metrics: true
+  save_predictions: true
+  per_class_analysis: true
+
+# Inference Configuration
+inference:
+  checkpoint_path: "./checkpoints/best_model.pth"
+  confidence_threshold: 0.5
+  save_output_video: true
+  output_dir: "./inference_results"
+
+# Activities (classes)
+activities:
+  - "walking"
+  - "running"
+  - "sitting"
+  - "standing"
+  - "jumping"
+  - "falling"
+
+# Data Augmentation
+augmentation:
+  enable: false
+  horizontal_flip: 0.5
+  color_jitter:
+    brightness: 0.2
+    contrast: 0.2
+    saturation: 0.1
+  gaussian_blur: false
+
+# Experiment Metadata
+metadata:
+  experiment_name: "default_experiment"
+  description: "Human Activity Recognition baseline"
+  author: "Anonymous"
+  tags: ["cnnlstm", "synthetic_data", "baseline"]

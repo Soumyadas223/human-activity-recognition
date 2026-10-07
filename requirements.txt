@@ -1,0 +1,11 @@
+streamlit
+torch
+opencv-contrib-python
+numpy
+matplotlib
+scikit-learn
+tqdm
+Pillow
+pandas
+seaborn
+PyYAML
